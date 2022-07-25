@@ -1,15 +1,22 @@
 
 
 
-
+// id's of HTML elements
 const weatherButton = document.getElementById("btnWeather");
+const tempButton = document.getElementById("tempBtn");
 const inputField = document.getElementById("inputId");
-const iconImage = document.getElementById("iconId");
 const cardId  = document.getElementById("cardId");
 const weatherInfo = document.getElementById("infoId");
 
 
+// temperatures
+const tempID = document.getElementById("tempId");
+const hiID = document.getElementById("hiId");
+const lowID = document.getElementById("lowId");
+const feelsLikeId = document.getElementById("feelsLikeId");
 
+
+// Fetching data from the server to manipulate the DOM
 weatherButton.addEventListener('click', () => {
     
     getWeather();
@@ -17,6 +24,29 @@ weatherButton.addEventListener('click', () => {
 });
 
 
+let isC = false;
+
+// Setting the Farenheit to Celsius (back-and-forth)
+tempButton.addEventListener('click',  () => {
+
+    isC = !isC;
+
+    (isC === true) ? convertToCelsius() : convertToFarenheit();
+
+});
+
+
+function convertToCelsius() {
+
+    
+
+}
+
+function convertToFarenheit() {
+
+}
+
+// fetch the data from the server
 async function getWeather() {
 
 
@@ -26,21 +56,9 @@ async function getWeather() {
     
     const weather = data['weather'][0];
     const main = data['main'];
-
-    
-
-    // // weather description
-    // const description = weather.description;
-    // const weatherIcon = weather.icon;
-
-    // // TEMPERATURE
-    // const temp = main.temp;
-    // const tempMin = main.temp_min;
-    // const tempMax = main.temp_max;
-    // const feelsLike = main.feels_like;
+//    const statusCode = data['cod'];
 
 
-    
 
     const weatherObject = {
         cityName : city,
@@ -54,9 +72,9 @@ async function getWeather() {
         humidity : main.humidity
     }
 
+    // setting the weather(visually) based on user input
     setWeather(weatherObject);
     
-
 }
 
 
@@ -66,17 +84,13 @@ async function getWeather() {
 function setWeather(weatherObject) {
 
 
-    const tempID = document.getElementById("tempId");
-    const hiID = document.getElementById("hiId");
-    const lowID = document.getElementById("lowId");
-    const feelsLikeId = document.getElementById("feelsLikeId");
+  
     const humidityID = document.getElementById("humidityId");
     const pressureID = document.getElementById("pressureID");
     const descriptionID = document.getElementById("descriptionId");
     const iconColor = document.getElementById("iconcolor");
 
 
-    let icon = weatherObject.weatherIcon.substring(0,2) + "d";
     switch(weatherObject.description) {
         case "clear sky":
             iconColor.className = "fa-solid fa-sun fa-spin fa-10x custom";
@@ -86,22 +100,22 @@ function setWeather(weatherObject) {
             break;
         case "scattered clouds":
         case "broken clouds":
-            iconColor.className = "fa-solid fa-cloud fa-10x";
+            iconColor.className = "fa-solid fa-cloud fa-10x custom";
              break;
         case "shower rain":
-            iconColor.className = "fa-solid fa-showers-heavy fa-10x";
+            iconColor.className = "fa-solid fa-showers-heavy fa-10x custom";
             break;
         case "rain":
-            iconColor.className = "fa-solid fa-cloud-rain fa-10x";
+            iconColor.className = "fa-solid fa-cloud-rain fa-10x custom";
             break;
         case "thunderstorm":
-            iconColor.className = "fa-solid fa-cloud-bolt fa-10x";
+            iconColor.className = "fa-solid fa-cloud-bolt fa-10x custom";
             break;
         case "snow":
-            iconColor.className = "fa-solid fa-snowflake fa-10x";
+            iconColor.className = "fa-solid fa-snowflake fa-10x custom";
             break;
         case "mist":
-            iconColor.className = "fa-solid fa-smog";
+            iconColor.className = "fa-solid fa-smog custom";
             break;
         default:
             console.log("Unknown weather");

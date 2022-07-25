@@ -11,40 +11,58 @@
 </head>
 
 
-<body style="background-color: #1819198f">
+<body>
 
   
-
-    <div class="text-center input-header">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col">
     <h1>Weather Web App</h1>
-    <input class="input-centered" id="inputId" type="text" name="city"></input>
+    <input id="inputId" type="text" name="city"></input>
     <button class="btn btn-dark" id="btnWeather">Get Weather</button>
-   </div>
-
-   <div class="container centered">
-   <div class="card text-white card-color mb-3 mx-auto shadow-lg p-3 mb-5 rounded"  style="width: 120; background-color: #434343;">
-    
-    <div class="card-body">
-      <!-- <img id=iconId src="http://openweathermap.org/img/wn/03d@2x.png"> -->
-    <div class="text-center">
-    <h5 id="cityId" class="card-title">Providence</h5>
-    </div>
-
-   <p <i id="iconcolor" class="fa-solid fa-cloud-sun fa-10x custom"></i> </p>
-    <p class="temp"><strong id="tempId"> 79&#176</strong><p>
-    <p><strong id="hiId"><i class="fa-solid fa-arrow-up"></i>  80&#176</strong><p>
-    <p><strong id="lowId"><i class="fa-solid fa-arrow-down"></i>  65&#176</strong><p>
-    
-    <p><strong id="feelsLikeId">Feels like: 34&#176</strong><p>
-    <p><strong id="humidityId"><i class="fa-solid fa-droplet-percent"></i>Humidity: 47%</strong><p>
-    <p><strong id="pressureID">Pressure: </strong><p>
-    
-    <b id="descriptionId">clear skies<b>
-
-
-   </div>
   </div>
-  <div>
+   </div>
+   </div>
+
+ 
+
+
+   <div class="card text-dark bg-light mb-3 mx-auto shadow-lg p-3 mb-5 bg-transparent rounded"  style="max-width: 120rem;">
+    <div class="card-body bg-transparent">
+      <div class="container">
+        <div class="row">
+          
+          <div class="col text-center">
+            <h5 id="cityId" class="card-title">Providence</h5>
+           
+          </div>
+          
+          <div class="col-sm-1">
+            <button id="tempBtn" type="button" class="btn btn-dark">F&#176</button>
+            </div>
+
+          </div>
+
+          <p><i id="iconcolor" class="fa-solid fa-cloud-sun fa-10x custom"></i></p>
+          <p class="temp"><strong id="tempId"> 79&#176</strong><p>
+          <p><strong id="hiId"><i class="fa-solid fa-arrow-up"></i> 80&#176</strong><p>
+          <p><strong id="lowId"><i class="fa-solid fa-arrow-down"></i>  65&#176</strong><p>
+          <p><strong id="feelsLikeId">Feels like: 34&#176</strong><p>
+          <p><strong id="humidityId"><i class="fa-solid fa-droplet-percent"></i>Humidity: 47%</strong><p>
+          <p><strong id="pressureID">Pressure: 3343</strong><p>
+          <span><strong id="descriptionId">clear skies<strong><span>
+      
+
+
+         </div>
+      </div>
+  </div>
+ 
+ 
+
+
+   </div>
+  
 
 
 
