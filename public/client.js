@@ -13,7 +13,11 @@ const weatherInfo = document.getElementById("infoId");
 const tempID = document.getElementById("tempId");
 const hiID = document.getElementById("hiId");
 const lowID = document.getElementById("lowId");
-const feelsLikeId = document.getElementById("feelsLikeId");
+const feelsLikeID = document.getElementById("feelsLikeId");
+
+
+let weatherObject = {};
+let isC = false;
 
 
 // Fetching data from the server to manipulate the DOM
@@ -24,27 +28,65 @@ weatherButton.addEventListener('click', () => {
 });
 
 
-let isC = false;
+
 
 // Setting the Farenheit to Celsius (back-and-forth)
 tempButton.addEventListener('click',  () => {
 
     isC = !isC;
-
     (isC === true) ? convertToCelsius() : convertToFarenheit();
 
 });
 
 
+
+farenheitArray = [];
+celsiusArray = [];
+
+// setting temperature to Celsius
 function convertToCelsius() {
 
+    celsiusArray[0] = helperCelsius(farenheitArray[0]);
+    celsiusArray[1] = helperCelsius(farenheitArray[1]);
+    celsiusArray[2] = helperCelsius(farenheitArray[2]);
+    celsiusArray[3] = helperCelsius(farenheitArray[3]);
     
 
+    tempID.innerHTML = celsiusArray[0] + "&#176";
+    lowID.innerHTML = "<i class='fa-solid fa-arrow-down'></i> " + celsiusArray[1] + "&#176";
+    hiID.innerHTML = "<i class='fa-solid fa-arrow-up'></i> " +  celsiusArray[2] + "&#176";
+    feelsLikeID.innerHTML = "Feels like: " + celsiusArray[3] + "&#176";
+
+
 }
 
+// setting temperature to Farenheit
 function convertToFarenheit() {
 
+
+
+    tempID.innerHTML = helperFarenheit(celsiusArray[0]) + "&#176";
+    lowID.innerHTML =  "<i class='fa-solid fa-arrow-down'></i> " + helperFarenheit(celsiusArray[1]) + "&#176";
+    hiID.innerHTML =  "<i class='fa-solid fa-arrow-up'></i> " +  helperFarenheit(celsiusArray[2]) + "&#176";
+    feelsLikeID.innerHTML = "Feels like: " + helperFarenheit(celsiusArray[3]) + "&#176";
+
 }
+
+function helperCelsius(temperature) {
+
+
+    const celsius  = (temperature - 32) * (5/9);
+    return Math.floor(celsius);
+}
+
+function helperFarenheit(temperature) {
+    const farenheit = (temperature * 9/5) + 32;
+    return Math.floor(farenheit);
+}
+
+
+
+
 
 // fetch the data from the server
 async function getWeather() {
@@ -56,11 +98,9 @@ async function getWeather() {
     
     const weather = data['weather'][0];
     const main = data['main'];
-//    const statusCode = data['cod'];
 
 
-
-    const weatherObject = {
+     weatherObject = {
         cityName : city,
         description : weather.description,
         weatherIcon : weather.icon,
@@ -71,6 +111,14 @@ async function getWeather() {
         pressure : main.pressure,
         humidity : main.humidity
     }
+
+
+    farenheitArray[0] = weatherObject.temp;
+    farenheitArray[1] = weatherObject.tempMin;
+    farenheitArray[2] = weatherObject.tempMax;
+    farenheitArray[3] = weatherObject.feelsLike;
+    
+
 
     // setting the weather(visually) based on user input
     setWeather(weatherObject);
@@ -84,11 +132,12 @@ async function getWeather() {
 function setWeather(weatherObject) {
 
 
-  
+
     const humidityID = document.getElementById("humidityId");
     const pressureID = document.getElementById("pressureID");
     const descriptionID = document.getElementById("descriptionId");
     const iconColor = document.getElementById("iconcolor");
+    const cityID = document.getElementById("cityId");
 
 
     switch(weatherObject.description) {
@@ -103,7 +152,7 @@ function setWeather(weatherObject) {
             iconColor.className = "fa-solid fa-cloud fa-10x custom";
              break;
         case "shower rain":
-            iconColor.className = "fa-solid fa-showers-heavy fa-10x custom";
+            iconColor.className = "fa-solid fa-cloud-showers-heavy fa-10x custom";
             break;
         case "rain":
             iconColor.className = "fa-solid fa-cloud-rain fa-10x custom";
@@ -123,25 +172,15 @@ function setWeather(weatherObject) {
 
     }
 
-
-
-    // console.log(icon.substring(0,2));
-
-   //  iconImage.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    // Updating all properties of weather through innerHTML.
     tempID.innerHTML = weatherObject.temp + "&#176";
-    lowID.innerHTML = "Low: " + weatherObject.tempMin + "&#176";
-    hiID.innerHTML = "Hi: " + weatherObject.tempMax + "&#176";
-    feelsLikeId.innerHTML = "Feels Like: " + weatherObject.feelsLike + "&#176";
+    lowID.innerHTML = "<i class='fa-solid fa-arrow-down'></i> " +  weatherObject.tempMin + "&#176";
+    hiID.innerHTML =  "<i class='fa-solid fa-arrow-up'></i> " + weatherObject.tempMax + "&#176";
+    feelsLikeID.innerHTML = "Feels Like: " + weatherObject.feelsLike + "&#176";
     humidityID.innerHTML = "Humidty: " + weatherObject.humidity;
     pressureID.innerHTML = "Pressure: " + weatherObject.pressure;
     descriptionID.innerHTML = weatherObject.description;
-    document.getElementById("cityId").innerHTML = weatherObject.cityName;
+    cityID.innerHTML = weatherObject.cityName;
     
-
-
-
-
-
-
     
 }
